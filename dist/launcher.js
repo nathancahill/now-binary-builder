@@ -66,11 +66,13 @@ async function launcher(event, context) {
         method,
         headers,
     };
+    console.log(`Starting ${BINARY}...`);
     const subprocess = execa_1.default(BINARY);
     await wait_on_1.default({
         resources: [`tcp:127.0.0.1:${PORT}`],
         interval: 20,
     });
+    console.log(`Sending request to port ${PORT}...`);
     // eslint-disable-next-line consistent-return
     return new Promise((resolve, reject) => {
         const req = http_1.request(opts, res => {
