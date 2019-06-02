@@ -33,14 +33,14 @@ async function build({ files, entrypoint, workPath, }) {
     const launcherFiles = {
         'launcher.js': new build_utils_1.FileBlob({ data: launcherData }),
     };
-    const lambda = await build_utils_1.createLambda({
-        files: { ...outputFiles, ...launcherFiles },
-        handler: 'launcher.launcher',
-        runtime: 'nodejs8.10',
-        environment: {},
-    });
-    return {
-        [entrypoint]: lambda,
-    };
+    return { ...outputFiles, ...launcherFiles };
+    // const lambda = await createLambda({
+    //   files: { ...outputFiles, ...launcherFiles },
+    //   handler: 'launcher.launcher',
+    //   runtime: 'nodejs8.10',
+    // });
+    // return {
+    //   [entrypoint]: lambda,
+    // };
 }
 exports.build = build;
