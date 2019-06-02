@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { readFile } from 'fs-extra';
+import { readFile, copy } from 'fs-extra';
 import {
   // createLambda,
   glob,
@@ -21,6 +21,7 @@ export async function build({
 }: BuildOptions) {
   console.log('downloading user files...');
   await download(files, workPath);
+  await copy(join(__dirname, '..', 'package.json'), join(workPath, 'package.json'));
   await installDependencies(workPath);
   await runShellScript(join(workPath, entrypoint));
 
