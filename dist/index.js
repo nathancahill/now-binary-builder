@@ -5,8 +5,10 @@ const fs_extra_1 = require("fs-extra");
 const build_utils_1 = require("@now/build-utils");
 exports.config = {
     maxLambdaSize: '5mb',
+    port: 5000,
+    binary: 'bin/handler',
 };
-async function build({ files, entrypoint, workPath, }) {
+async function build({ files, entrypoint, config, workPath, }) {
     console.log('downloading user files...');
     await build_utils_1.download(files, workPath);
     await build_utils_1.installDependencies(__dirname, ['--modules-folder', path_1.join(workPath, 'node_modules')]);
@@ -15,8 +17,8 @@ async function build({ files, entrypoint, workPath, }) {
     const launcherPath = path_1.join(__dirname, 'launcher.js');
     let launcherData = await fs_extra_1.readFile(launcherPath, 'utf8');
     launcherData = launcherData
-        .replace("'__NOW_PORT'", '5000')
-        .replace('__NOW_BINARY', 'bin/handler');
+        .replace("'__NOW_PORT'", `${config.port}`)
+        .replace('__NOW_BINARY', config.binary);
     const launcherFiles = {
         'launcher.js': new build_utils_1.FileBlob({ data: launcherData }),
     };

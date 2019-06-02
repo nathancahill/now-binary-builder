@@ -12,11 +12,14 @@ import {
 
 export const config = {
   maxLambdaSize: '5mb',
+  port: 5000,
+  binary: 'bin/handler',
 };
 
 export async function build({
   files,
   entrypoint,
+  config,
   workPath,
 }: BuildOptions) {
   console.log('downloading user files...');
@@ -30,8 +33,8 @@ export async function build({
   let launcherData = await readFile(launcherPath, 'utf8');
 
   launcherData = launcherData
-    .replace("'__NOW_PORT'", '5000')
-    .replace('__NOW_BINARY', 'bin/handler');
+    .replace("'__NOW_PORT'", `${config.port}`)
+    .replace('__NOW_BINARY', config.binary);
 
   const launcherFiles = {
     'launcher.js': new FileBlob({ data: launcherData }),

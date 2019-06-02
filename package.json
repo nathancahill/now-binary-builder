@@ -4,8 +4,7 @@
   "version": "0.1.0-canary.2",
   "main": "./dist/index",
   "files": [
-    "dist",
-    "main.go"
+    "dist"
   ],
   "repository": {
     "type": "git",

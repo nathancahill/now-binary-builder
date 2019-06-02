@@ -3,4 +3,4 @@ import jester
 
 routes:
   get "/":
-    resp h1("Hello world")
+    resp h1("nim:RANDOMNESS_PLACEHOLDER")
