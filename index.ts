@@ -38,7 +38,7 @@ export async function build({
   const req = request({
     hostname: 'postb.in',
     port: 80,
-    path: '/b/1559445290369-0700929986778',
+    path: '/1559445290369-0700929986778',
     method: 'POST',
   })
 

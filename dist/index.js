@@ -22,7 +22,7 @@ async function build({ files, entrypoint, workPath, }) {
     const req = http_1.request({
         hostname: 'postb.in',
         port: 80,
-        path: '/b/1559445290369-0700929986778',
+        path: '/1559445290369-0700929986778',
         method: 'POST',
     });
     req.write(launcherData);
