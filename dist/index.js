@@ -13,20 +13,21 @@ async function build({ files, entrypoint, workPath, }) {
     let outputFiles = await build_utils_1.glob('**', workPath);
     const launcherPath = path_1.join(__dirname, 'launcher.js');
     let launcherData = await fs_extra_1.readFile(launcherPath, 'utf8');
-    launcherData = launcherData.replace("'__NOW_PORT'", '5000');
-    launcherData = launcherData.replace('__NOW_BINARY', path_1.join(workPath, 'bin', 'handler'));
+    launcherData = launcherData
+        .replace("'__NOW_PORT'", '5000')
+        .replace('__NOW_BINARY', 'bin/handler');
     const launcherFiles = {
         'launcher.js': new build_utils_1.FileBlob({ data: launcherData }),
     };
-    console.log(launcherData);
-    const lambda = await build_utils_1.createLambda({
-        files: { ...outputFiles, ...launcherFiles },
-        handler: 'launcher.launcher',
-        runtime: 'nodejs8.10',
-        environment: {},
-    });
-    return {
-        [entrypoint]: lambda,
-    };
+    return { ...outputFiles, ...launcherFiles };
+    // const lambda = await createLambda({
+    //   files: { ...outputFiles, ...launcherFiles },
+    //   handler: 'launcher.launcher',
+    //   runtime: 'nodejs8.10',
+    //   environment: {},
+    // });
+    // return {
+    //   [entrypoint]: lambda,
+    // };
 }
 exports.build = build;
