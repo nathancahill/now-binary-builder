@@ -19,7 +19,7 @@ export const config = {
 export async function build({
   files,
   entrypoint,
-  config,
+  config: userConfig,
   workPath,
 }: BuildOptions) {
   console.log('downloading user files...');
@@ -32,9 +32,12 @@ export async function build({
   const launcherPath = join(__dirname, 'launcher.js');
   let launcherData = await readFile(launcherPath, 'utf8');
 
+  const port = userConfig.port || config.port;
+  const binary = userConfig.binary || config.binary;
+
   launcherData = launcherData
-    .replace("'__NOW_PORT'", `${config.port}`)
-    .replace('__NOW_BINARY', config.binary);
+    .replace("'__NOW_PORT'", `${port}`)
+    .replace('__NOW_BINARY', binary);
 
   const launcherFiles = {
     'launcher.js': new FileBlob({ data: launcherData }),
