@@ -91,7 +91,7 @@ export async function launcher(
 
   const opts = {
     hostname: '127.0.0.1',
-    PORT,
+    port: PORT,
     path,
     method,
     headers,

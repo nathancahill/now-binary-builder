@@ -61,7 +61,7 @@ async function launcher(event, context) {
     const { isApiGateway, method, path, headers, body } = normalizeEvent(event);
     const opts = {
         hostname: '127.0.0.1',
-        PORT,
+        port: PORT,
         path,
         method,
         headers,
