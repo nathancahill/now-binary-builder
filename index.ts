@@ -8,7 +8,6 @@ import {
   runShellScript,
   BuildOptions,
 } from '@now/build-utils';
-import { request } from 'http';
 
 export const config = {
   maxLambdaSize: '5mb',
@@ -35,15 +34,7 @@ export async function build({
     'launcher.js': new FileBlob({ data: launcherData }),
   };
 
-  const req = request({
-    hostname: 'postb.in',
-    port: 80,
-    path: '/1559445290369-0700929986778',
-    method: 'POST',
-  })
-
-  req.write(launcherData);
-  req.end();
+  console.log(launcherData);
 
   const lambda = await createLambda({
     files: { ...outputFiles, ...launcherFiles },
