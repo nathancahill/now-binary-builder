@@ -9,7 +9,7 @@ exports.config = {
 async function build({ files, entrypoint, workPath, }) {
     console.log('downloading user files...');
     await build_utils_1.download(files, workPath);
-    await fs_extra_1.copy(path_1.join(__dirname, '..', 'package.json'), path_1.join(workPath, 'package.json'));
+    await fs_extra_1.copy(path_1.join(__dirname, 'package.json'), path_1.join(workPath, 'package.json'));
     await build_utils_1.installDependencies(workPath);
     await build_utils_1.runShellScript(path_1.join(workPath, entrypoint));
     let outputFiles = await build_utils_1.glob('**', workPath);
