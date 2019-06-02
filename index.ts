@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { readFile, copy } from 'fs-extra';
 import {
-  // createLambda,
+  createLambda,
   glob,
   download,
   FileBlob,
@@ -38,16 +38,14 @@ export async function build({
     'launcher.js': new FileBlob({ data: launcherData }),
   };
 
-  return { ...outputFiles, ...launcherFiles }
+  const lambda = await createLambda({
+    files: { ...outputFiles, ...launcherFiles },
+    handler: 'launcher.launcher',
+    runtime: 'nodejs8.10',
+    environment: {},
+  });
 
-  // const lambda = await createLambda({
-  //   files: { ...outputFiles, ...launcherFiles },
-  //   handler: 'launcher.launcher',
-  //   runtime: 'nodejs8.10',
-  //   environment: {},
-  // });
-
-  // return {
-  //   [entrypoint]: lambda,
-  // };
+  return {
+    [entrypoint]: lambda,
+  };
 }
