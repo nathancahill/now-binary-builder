@@ -34,6 +34,8 @@ export async function build({
     'launcher.js': new FileBlob({ data: launcherData }),
   };
 
+  console.log(Object.keys({ ...outputFiles, ...launcherFiles }))
+
   const lambda = await createLambda({
     files: { ...outputFiles, ...launcherFiles },
     handler: 'launcher.launcher',
